@@ -3,14 +3,15 @@ import { View, StyleSheet } from 'react-native';
 import { Text, Input, Icon, Button } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 
-class LoginForm extends Component {
+class RegisterForm extends Component {
     state = { email: '', password: '', hidePassword: true }
 
     render() {
+        console.log(this.props.route.params)
         return (
             <View style={styles.containerStyle}>
                 <Animatable.Text animation={'fadeInDown'} duration={2000}>
-                    <Text h3>Instagrin</Text>
+                    <Text h3>Welcome!</Text>
                 </Animatable.Text>
                 <View style={styles.inputContainerStyle}>
                     <Input
@@ -48,17 +49,17 @@ class LoginForm extends Component {
                     />
                 </View>
                 <Button
-                    title="Login"
-                    containerStyle={{ width: '95%', marginBottom: 10 }}
-                    buttonStyle={{ backgroundColor: 'black' }}
-                />
-                <Button
                     title="Register"
-                    containerStyle={{ width: '95%' }}
+                    containerStyle={{ width: '95%', marginBottom: 10 }}
                     buttonStyle={{ borderColor: 'black', borderWidth: 1 }}
                     titleStyle={{ color: 'black' }}
                     type="outline"
-                    onPress={() => this.props.navigation.navigate('Register', { ab: 'kacrut' })}
+                />
+                <Button
+                    title="Back to Login"
+                    containerStyle={{ width: '95%' }}
+                    buttonStyle={{ backgroundColor: 'black' }}
+                    onPress={() => this.props.navigation.goBack()}
                 />
             </View>
         )
@@ -79,4 +80,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default LoginForm;
+export default RegisterForm;
