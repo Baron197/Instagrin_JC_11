@@ -4,10 +4,16 @@ import { Text, Input, Icon, Button } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 
 class RegisterForm extends Component {
-    state = { email: '', password: '', hidePassword: true }
+    state = { 
+        email: '', 
+        username: '', 
+        password: '', 
+        conpassword: '', 
+        hidePassword: true,
+        hideConPassword: true
+    }
 
     render() {
-        console.log(this.props.route.params)
         return (
             <View style={styles.containerStyle}>
                 <Animatable.Text animation={'fadeInDown'} duration={2000}>
@@ -25,6 +31,18 @@ class RegisterForm extends Component {
                         }
                         value={this.state.email}
                         onChangeText={(val) => this.setState({ email: val })}
+                    />
+                    <Input
+                        placeholder='Username'
+                        leftIcon={
+                            <Icon
+                                name='account-box'
+                                size={24}
+                                color='black'
+                            />
+                        }
+                        value={this.state.username}
+                        onChangeText={(val) => this.setState({ username: val })}
                     />
                     <Input
                         placeholder='Password'
@@ -46,6 +64,27 @@ class RegisterForm extends Component {
                         value={this.state.password}
                         onChangeText={(val) => this.setState({ password: val })}
                         secureTextEntry={this.state.hidePassword}
+                    />
+                    <Input
+                        placeholder='Confirm Password'
+                        leftIcon={
+                            <Icon
+                                name='lock'
+                                size={24}
+                                color='black'
+                            />
+                        }
+                        rightIcon={
+                            <Icon
+                                name={this.state.hideConPassword ? 'visibility-off' : 'visibility' }
+                                size={24}
+                                color={this.state.hideConPassword ? '#bfc3c9' : 'black' }
+                                onPress={() => this.setState({ hideConPassword: !this.state.hideConPassword })}
+                            />
+                        }
+                        value={this.state.conpassword}
+                        onChangeText={(val) => this.setState({ conpassword: val })}
+                        secureTextEntry={this.state.hideConPassword}
                     />
                 </View>
                 <Button

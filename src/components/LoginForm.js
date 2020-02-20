@@ -51,6 +51,7 @@ class LoginForm extends Component {
                     title="Login"
                     containerStyle={{ width: '95%', marginBottom: 10 }}
                     buttonStyle={{ backgroundColor: 'black' }}
+                    onPress={() => this.props.navigation.navigate('DrawerMenu')}
                 />
                 <Button
                     title="Register"
@@ -58,7 +59,7 @@ class LoginForm extends Component {
                     buttonStyle={{ borderColor: 'black', borderWidth: 1 }}
                     titleStyle={{ color: 'black' }}
                     type="outline"
-                    onPress={() => this.props.navigation.navigate('Register', { ab: 'kacrut' })}
+                    onPress={() => this.props.navigation.navigate('Register')}
                 />
             </View>
         )
