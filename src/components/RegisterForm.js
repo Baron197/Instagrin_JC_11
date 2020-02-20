@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Input, Icon, Button } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
+import axios from 'axios';
+import { API_URL } from '../helpers/apiurl';
 
 class RegisterForm extends Component {
     state = { 
@@ -10,7 +12,42 @@ class RegisterForm extends Component {
         password: '', 
         conpassword: '', 
         hidePassword: true,
-        hideConPassword: true
+        hideConPassword: true,
+        btnRegisterLoading: false,
+        error: ''
+    }
+
+    onBtnRegisterPress = async () => {
+        try {
+            this.setState({ btnRegisterLoading: true, error: '' })
+            if(this.state.email !== '' 
+                && this.state.password !== '' 
+                && this.state.username !== ''
+                && this.state.conpassword !== ''
+            ) {
+                if(this.state.password === this.state.conpassword) {
+                    const res = await axios.post(API_URL + `/user/register`, {
+                        email: this.state.email,
+                        username: this.state.username,
+                        password: this.state.password
+                    })
+                    console.log(res.data)
+                    this.setState({ 
+                        btnRegisterLoading: false,
+                        email: '',
+                        username: '',
+                        password: '',
+                        conpassword: ''
+                    })
+                } else {
+                    this.setState({ btnRegisterLoading: false, error: 'Password dan Confirm Password Tidak Sama'})
+                }   
+            }  else {
+                this.setState({ btnRegisterLoading: false, error: 'Semua Input Harus Diisi'})
+            }    
+        } catch(err) {
+            this.setState({ btnRegisterLoading: false, error: err.response.data.message })
+        }
     }
 
     render() {
@@ -42,7 +79,7 @@ class RegisterForm extends Component {
                             />
                         }
                         value={this.state.username}
-                        onChangeText={(val) => this.setState({ username: val })}
+                        onChangeText={(val) => this.setState({ username: val.toLowerCase().replace(/\s/g, '') })}
                     />
                     <Input
                         placeholder='Password'
@@ -87,12 +124,15 @@ class RegisterForm extends Component {
                         secureTextEntry={this.state.hideConPassword}
                     />
                 </View>
+                <Text style={{ color: 'red' }}>{this.state.error}</Text>
                 <Button
                     title="Register"
                     containerStyle={{ width: '95%', marginBottom: 10 }}
                     buttonStyle={{ borderColor: 'black', borderWidth: 1 }}
                     titleStyle={{ color: 'black' }}
                     type="outline"
+                    onPress={this.onBtnRegisterPress}
+                    loading={this.state.btnRegisterLoading}
                 />
                 <Button
                     title="Back to Login"
