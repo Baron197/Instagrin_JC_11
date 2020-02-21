@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Input, Icon, Button } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
+import { connect } from 'react-redux';
 
 class LoginForm extends Component {
     state = { email: '', password: '', hidePassword: true }
+
+    onBtnLoginPress = () => {
+        console.log(this.props.user.authChecked)
+    }
 
     render() {
         return (
@@ -51,7 +56,7 @@ class LoginForm extends Component {
                     title="Login"
                     containerStyle={{ width: '95%', marginBottom: 10 }}
                     buttonStyle={{ backgroundColor: 'black' }}
-                    onPress={() => this.props.navigation.navigate('DrawerMenu')}
+                    onPress={this.onBtnLoginPress}
                 />
                 <Button
                     title="Register"
@@ -80,4 +85,8 @@ const styles = StyleSheet.create({
     }
 })
 
-export default LoginForm;
+const mapStateToProps = ({ user }) => {
+    return { user }
+}
+
+export default connect(mapStateToProps)(LoginForm);

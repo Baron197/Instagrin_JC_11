@@ -46,7 +46,10 @@ class RegisterForm extends Component {
                 this.setState({ btnRegisterLoading: false, error: 'Semua Input Harus Diisi'})
             }    
         } catch(err) {
-            this.setState({ btnRegisterLoading: false, error: err.response.data.message })
+            this.setState({ 
+                btnRegisterLoading: false, 
+                error: err.response ? err.response.data.message : err.name
+            })
         }
     }
 
