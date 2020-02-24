@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import { API_URL } from '../helpers/apiurl';
 
 import { 
@@ -33,14 +33,12 @@ export const onUserLogin = ({ email, password }) => {
                                     email, password
                                 })
             console.log(res.data)
-            console.loog('hello')
 
             await AsyncStorage.setItem('usertoken', res.data.token);
             dispatch({ 
                 type: USER_LOGIN_SUCCESS,
                 payload: res.data
             })
-
         } catch(err) {
             dispatch({
                 type: USER_LOGIN_FAIL,

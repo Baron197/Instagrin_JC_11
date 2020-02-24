@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { Text, Input, Icon, Button } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
+import { StackActions } from '@react-navigation/native';
 import { 
     onInputText, 
     hideUnhidePassword,
@@ -10,6 +11,12 @@ import {
 } from '../actions';
 
 class LoginForm extends Component {
+    componentDidUpdate() {
+        if (this.props.user.token) {
+            this.props.navigation.dispatch(StackActions.replace('DrawerMenu'));
+        } 
+    }
+
     onBtnLoginPress = () => {
         this.props.onUserLogin(this.props.loginForm)
     }
