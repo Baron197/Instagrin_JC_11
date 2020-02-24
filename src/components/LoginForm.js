@@ -3,10 +3,9 @@ import { View, StyleSheet } from 'react-native';
 import { Text, Input, Icon, Button } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
+import { onInputText, hideUnhidePassword } from '../actions';
 
 class LoginForm extends Component {
-    state = { email: '', password: '', hidePassword: true }
-
     onBtnLoginPress = () => {
         console.log(this.props.user.authChecked)
     }
@@ -27,8 +26,8 @@ class LoginForm extends Component {
                                 color='black'
                             />
                         }
-                        value={this.state.email}
-                        onChangeText={(val) => this.setState({ email: val })}
+                        value={this.props.loginForm.email}
+                        onChangeText={(val) => this.props.onInputText('email', val)}
                     />
                     <Input
                         placeholder='Password'
@@ -41,15 +40,15 @@ class LoginForm extends Component {
                         }
                         rightIcon={
                             <Icon
-                                name={this.state.hidePassword ? 'visibility-off' : 'visibility' }
+                                name={this.props.loginForm.hidePassword ? 'visibility-off' : 'visibility' }
                                 size={24}
-                                color={this.state.hidePassword ? '#bfc3c9' : 'black' }
-                                onPress={() => this.setState({ hidePassword: !this.state.hidePassword })}
+                                color={this.props.loginForm.hidePassword ? '#bfc3c9' : 'black' }
+                                onPress={() => this.props.hideUnhidePassword()}
                             />
                         }
-                        value={this.state.password}
-                        onChangeText={(val) => this.setState({ password: val })}
-                        secureTextEntry={this.state.hidePassword}
+                        value={this.props.loginForm.password}
+                        onChangeText={(val) => this.props.onInputText('password', val)}
+                        secureTextEntry={this.props.loginForm.hidePassword}
                     />
                 </View>
                 <Button
@@ -85,8 +84,8 @@ const styles = StyleSheet.create({
     }
 })
 
-const mapStateToProps = ({ user }) => {
-    return { user }
+const mapStateToProps = ({ user, loginForm }) => {
+    return { user, loginForm }
 }
 
-export default connect(mapStateToProps)(LoginForm);
+export default connect(mapStateToProps, { onInputText, hideUnhidePassword })(LoginForm);
