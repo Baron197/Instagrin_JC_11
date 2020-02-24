@@ -1,7 +1,7 @@
 import {
     INPUT_TEXT,
     HIDE_UNHIDE_PASSWORD,
-    ERROR_LOGIN,
+    USER_LOGIN_FAIL,
     LOADING_LOGIN,
     USER_LOGIN_SUCCESS
 } from '../actions/types';
@@ -20,10 +20,10 @@ export default (state=INITIAL_STATE, action) => {
             return { ...state, [action.payload.prop]: action.payload.value }
         case HIDE_UNHIDE_PASSWORD :
             return { ...state, hidePassword: !state.hidePassword }
-        case ERROR_LOGIN :
-            return { ...state, error: action.payload }
+        case USER_LOGIN_FAIL :
+            return { ...state, loading: false, error: action.payload }
         case LOADING_LOGIN :
-            return { ...state, loading: true }
+            return { ...state, loading: true, error: '' }
         case USER_LOGIN_SUCCESS :
             return INITIAL_STATE
         default :

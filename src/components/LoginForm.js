@@ -3,11 +3,15 @@ import { View, StyleSheet } from 'react-native';
 import { Text, Input, Icon, Button } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
-import { onInputText, hideUnhidePassword } from '../actions';
+import { 
+    onInputText, 
+    hideUnhidePassword,
+    onUserLogin 
+} from '../actions';
 
 class LoginForm extends Component {
     onBtnLoginPress = () => {
-        console.log(this.props.user.authChecked)
+        this.props.onUserLogin(this.props.loginForm)
     }
 
     render() {
@@ -51,11 +55,13 @@ class LoginForm extends Component {
                         secureTextEntry={this.props.loginForm.hidePassword}
                     />
                 </View>
+                <Text style={{ color: 'red' }}>{this.props.loginForm.error}</Text>
                 <Button
                     title="Login"
                     containerStyle={{ width: '95%', marginBottom: 10 }}
                     buttonStyle={{ backgroundColor: 'black' }}
                     onPress={this.onBtnLoginPress}
+                    loading={this.props.loginForm.loading}
                 />
                 <Button
                     title="Register"
@@ -88,4 +94,8 @@ const mapStateToProps = ({ user, loginForm }) => {
     return { user, loginForm }
 }
 
-export default connect(mapStateToProps, { onInputText, hideUnhidePassword })(LoginForm);
+export default connect(mapStateToProps, { 
+    onInputText, 
+    hideUnhidePassword,
+    onUserLogin
+})(LoginForm);
