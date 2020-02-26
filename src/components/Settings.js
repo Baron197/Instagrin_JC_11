@@ -8,12 +8,13 @@ import { onUserLogout } from '../actions';
 class Settings extends React.Component {
     componentDidUpdate() {
         if(!this.props.user.id) {
-            this.props.navigation.reset({
+            const resetAction = CommonActions.reset({
                 index: 0,
                 routes: [
                     { name: 'Login' }
                 ]
-            })
+            });
+            this.props.rootStackNavigation.dispatch(resetAction);
         }
     }
 
