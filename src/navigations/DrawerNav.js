@@ -10,7 +10,20 @@ const SettingPage = (nav) => {
 }
 export default ({ navigation }) => {
     return (
-        <Drawer.Navigator initialRouteName="TabMenu">
+        <Drawer.Navigator 
+            initialRouteName="TabMenu"
+            drawerStyle={{
+                backgroundColor: '#fff',
+                borderColor: '#cfcfcf',
+                borderWidth: 1
+             }}
+            drawerPosition='right'
+            drawerType='slide'
+            overlayColor={1}
+            drawerContentOptions={{
+                activeTintColor: 'black'
+            }}
+        >
             <Drawer.Screen name="TabMenu" component={TabNav} />
             <Drawer.Screen name="Settings">
                 {SettingPage(navigation)}
