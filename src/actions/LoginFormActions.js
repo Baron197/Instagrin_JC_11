@@ -47,3 +47,34 @@ export const onUserLogin = ({ email, password }) => {
         }
     }
 }
+
+export const userLoginCheck = () => {
+    return async (dispatch) => {
+        try {
+            const token = await AsyncStorage.getItem('usertoken');
+            if(!token) {
+                return dispatch({ type: USER_LOGIN_FAIL })
+            }
+            
+            const res = await axios.post(API_URL + '/user/keeplogin', {}, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            console.log(res.data)
+            dispatch({
+                type: USER_LOGIN_SUCCESS,
+                payload: res.data
+            })
+        } catch(err) {
+            dispatch({ type: USER_LOGIN_FAIL })
+        }  
+    }
+}
+
+export const onUserLogout = () => {
+    return async (dispatch) => {
+        await AsyncStorage.removeItem('usertoken')
+        dispatch({ type: USER_LOGIN_FAIL })
+    }
+}

@@ -5,11 +5,11 @@ import TabNav from './TabNav';
 
 const Drawer = createDrawerNavigator();
 
-export default (props) => {
+export default ({ navigation }) => {
     return (
         <Drawer.Navigator initialRouteName="TabMenu">
             <Drawer.Screen name="TabMenu" component={TabNav} />
-            <Drawer.Screen name="Settings" component={Settings} />
+            <Drawer.Screen name="Settings" component={<Settings rootStackNavigation={navigation} />} />
         </Drawer.Navigator>
     )
 }

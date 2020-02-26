@@ -1,11 +1,37 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { Header, Button } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { CommonActions } from '@react-navigation/native';
+import { onUserLogout } from '../actions';
 
 class Settings extends React.Component {
+    componentDidUpdate() {
+        if(!this.props.user.id) {
+            this.props.navigation.reset({
+                index: 0,
+                routes: [
+                    { name: 'Login' }
+                ]
+            })
+        }
+    }
+
     render() {
         return (
             <View style={styles.containerStyle}>
-                <Text>Settings Page</Text>
+                <Button 
+                    title="Log Out"
+                    containerStyle={{ 
+                        marginVertical: 15, 
+                        borderWidth: 0.5,
+                        borderColor: 'gray',
+                        width: '90%'
+                    }}
+                    titleStyle={{ color: 'black' }}
+                    type='outline'
+                    onPress={this.props.onUserLogout}
+                />
             </View>
         )
     }
@@ -20,4 +46,8 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Settings;
+const mapStateToProps = ({ user }) => {
+    return { user }
+}
+
+export default connect(mapStateToProps, { onUserLogout })(Settings);
