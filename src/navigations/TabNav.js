@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from 'react-native-elements';
 import Home from '../components/Home';
-import Profile from '../components/Profile';
+import ProfileNav from './ProfileNav';
 
 const Tab = createBottomTabNavigator();
 
@@ -16,7 +16,7 @@ export default (props) => {
       
                   if (route.name === 'Home') {
                     iconName = 'home';
-                  } else if (route.name === 'Profile') {
+                  } else if (route.name === 'ProfileNav') {
                     iconName = 'account-box';
                   }
       
@@ -31,7 +31,7 @@ export default (props) => {
             }}
         >
             <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Profile" component={Profile} />
+            <Tab.Screen name="ProfileNav" component={ProfileNav} />
         </Tab.Navigator>
     )
 }

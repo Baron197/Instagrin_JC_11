@@ -11,7 +11,7 @@ export default ({ post }) => {
                 <Thumbnail source={{uri: `${API_URL}${post.profileimage}`}} />
                 <Body>
                   <Text>{post.username}</Text>
-                  <Text note>Instagrin User</Text>
+                  <Text note>Instagrin {post.role}</Text>
                 </Body>
               </Left>
             </CardItem>

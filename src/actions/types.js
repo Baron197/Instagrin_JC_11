@@ -9,3 +9,6 @@ export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL';
 
 // action types HomeListPostReducer
 export const FILL_LIST_POST = 'FILL_LIST_POST';
+
+// action types EditProfileReducer
+export const INIT_EDIT_PROFILE = 'INIT_EDIT_PROFILE';
