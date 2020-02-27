@@ -1,5 +1,6 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Icon } from 'react-native-elements';
 import Settings from '../components/Settings';
 import TabNav from './TabNav';
 
@@ -21,11 +22,27 @@ export default ({ navigation }) => {
             drawerType='slide'
             overlayColor={1}
             drawerContentOptions={{
-                activeTintColor: 'black'
+                activeTintColor: 'black',
+                activeBackgroundColor: '#fff',
+                justifyContent: 'flex-end'
             }}
         >
-            <Drawer.Screen name="TabMenu" component={TabNav} />
-            <Drawer.Screen name="Settings">
+            <Drawer.Screen 
+                name="TabMenu" 
+                component={TabNav}
+                options={{
+                    drawerLabel: () => null
+                }}
+            />
+            <Drawer.Screen 
+                name="Settings"
+                options={{
+                    drawerIcon: ({ tintColor }) => (
+                        <Icon name={'cog'} type='font-awesome' size={25} color={tintColor} />
+                    ),
+                    gestureEnabled: false
+                }}
+            >
                 {SettingPage(navigation)}
             </Drawer.Screen>
         </Drawer.Navigator>

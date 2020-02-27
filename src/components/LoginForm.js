@@ -93,6 +93,7 @@ class LoginForm extends Component {
         return (
             <View style={styles.containerStyle}>
                 <Icon type="feather" size={70} name="instagram" />
+                <Text h4>Instagrin</Text>
             </View>
         )
     }
