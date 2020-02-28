@@ -3,8 +3,22 @@ import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
 import { Header, Button, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { API_URL } from '../helpers/apiurl';
+import { 
+    onInputEditProfileText, 
+    saveProfile
+} from '../actions';
 
 class EditProfile extends React.Component {
+    componentDidUpdate() {
+        if(this.props.editProfile.saveProfileSuccess) {
+            this.props.navigation.goBack()
+        }
+    }
+
+    onSaveProfile = () => {
+        this.props.saveProfile(this.props.editProfile)
+    }
+
     render() {
         return (
             <View>
@@ -21,7 +35,8 @@ class EditProfile extends React.Component {
                     }}
                     rightComponent={{ 
                         icon: 'done', 
-                        color: '#4388d6'
+                        color: '#4388d6',
+                        onPress: this.onSaveProfile
                     }}
                     containerStyle={{
                         backgroundColor: '#fff',
@@ -32,7 +47,7 @@ class EditProfile extends React.Component {
                 />
                 <View style={{ alignItems: 'center', marginTop: 10 }}>
                     <Image 
-                        source={{ uri: `${API_URL}${this.props.user.profileimage}` }} 
+                        source={{ uri: `${API_URL}${this.props.editProfile.profileimage}` }} 
                         style={{ width: 90, height: 90, borderRadius: 90}} 
                     />
                     <TouchableWithoutFeedback>
@@ -50,7 +65,8 @@ class EditProfile extends React.Component {
                     </Text>
                     <Input
                         placeholder='Name'
-                        value={this.props.user.displayname}
+                        value={this.props.editProfile.displayname}
+                        onChangeText={(text) => this.props.onInputEditProfileText('displayname', text)}
                     />
                 </View>
                 <View style={{ paddingTop: 15 }}>
@@ -62,7 +78,8 @@ class EditProfile extends React.Component {
                     </Text>
                     <Input
                         placeholder='Username'
-                        value={this.props.user.username}
+                        value={this.props.editProfile.username}
+                        onChangeText={(text) => this.props.onInputEditProfileText('username', text)}
                     />
                 </View>
                 <View style={{ paddingTop: 15 }}>
@@ -74,7 +91,8 @@ class EditProfile extends React.Component {
                     </Text>
                     <Input
                         placeholder='Bio'
-                        value={this.props.user.bio}
+                        value={this.props.editProfile.bio}
+                        onChangeText={(text) => this.props.onInputEditProfileText('bio', text)}
                     />
                 </View>
             </View>
@@ -82,8 +100,8 @@ class EditProfile extends React.Component {
     }
 }
 
-const mapStateToProps = ({ user }) => {
-    return { user }
+const mapStateToProps = ({ editProfile }) => {
+    return { editProfile }
 }
 
-export default connect(mapStateToProps)(EditProfile);
+export default connect(mapStateToProps, { onInputEditProfileText, saveProfile })(EditProfile);

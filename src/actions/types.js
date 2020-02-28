@@ -12,3 +12,5 @@ export const FILL_LIST_POST = 'FILL_LIST_POST';
 
 // action types EditProfileReducer
 export const INIT_EDIT_PROFILE = 'INIT_EDIT_PROFILE';
+export const INPUT_EDIT_PROFILE_TEXT = 'INPUT_EDIT_PROFILE_TEXT';
+export const SAVE_PROFILE_LOADING = 'SAVE_PROFILE_LOADING';
