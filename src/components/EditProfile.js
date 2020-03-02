@@ -2,10 +2,12 @@ import React from 'react';
 import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
 import { Header, Button, Input, Overlay } from 'react-native-elements';
 import { connect } from 'react-redux';
+import ImagePicker from 'react-native-image-crop-picker';
 import { API_URL } from '../helpers/apiurl';
 import { 
     onInputEditProfileText, 
-    saveProfile
+    saveProfile,
+    saveProfileImage
 } from '../actions';
 
 class EditProfile extends React.Component {
@@ -19,6 +21,25 @@ class EditProfile extends React.Component {
 
     onSaveProfile = () => {
         this.props.saveProfile(this.props.editProfile)
+    }
+
+    onSelectGalleryPress = () => {
+        ImagePicker.openPicker({
+            width: 700,
+            height: 700,
+            cropping: true,
+            mediaType: 'photo'
+        }).then(image => {
+            console.log(image);
+            this.setState({ isVisible: false })
+            this.props.saveProfileImage(image);
+        }).catch(err => {
+            console.log(err)
+        });
+    }
+
+    onOpenCameraPress = () => {
+
     }
 
     render() {
@@ -116,7 +137,9 @@ class EditProfile extends React.Component {
                         >
                             Change Profile Photo
                         </Text>
-                        <TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback
+                            onPress={this.onSelectGalleryPress}
+                        >
                             <Text
                                 style={{
                                     fontSize: 16,
@@ -126,7 +149,9 @@ class EditProfile extends React.Component {
                                 Select from Gallery
                             </Text>
                         </TouchableWithoutFeedback>
-                        <TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback
+                            onPress={this.onOpenCameraPress}
+                        >
                             <Text
                                 style={{
                                     fontSize: 16,
@@ -147,4 +172,4 @@ const mapStateToProps = ({ editProfile }) => {
     return { editProfile }
 }
 
-export default connect(mapStateToProps, { onInputEditProfileText, saveProfile })(EditProfile);
+export default connect(mapStateToProps, { onInputEditProfileText, saveProfile, saveProfileImage })(EditProfile);

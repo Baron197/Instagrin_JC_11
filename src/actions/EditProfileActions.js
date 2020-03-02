@@ -50,3 +50,34 @@ export const saveProfile = ({ username, displayname, bio }) => {
         }
     }
 }
+
+export const saveProfileImage = (img) => {
+    return async (dispatch) => {
+        try {
+            const token = await AsyncStorage.getItem('usertoken')
+            const options = {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': `multipart/form-data`
+                }
+            }
+
+            var formdata = new FormData();
+            const image = {
+                uri: img.path,
+                type: 'image/jpeg',
+                name: 'photo.jpg',
+            }
+            formdata.append('image', image)
+            const res = await axios.put(API_URL + '/user/editprofileimage', formdata, options)
+            
+            await AsyncStorage.setItem('usertoken', res.data.token)
+            dispatch({ 
+                type: USER_LOGIN_SUCCESS,
+                payload: res.data
+            })
+        } catch(err) {
+            console.log(err)
+        }
+    }
+}
