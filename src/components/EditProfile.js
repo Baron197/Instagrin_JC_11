@@ -104,37 +104,39 @@ class EditProfile extends React.Component {
                     height={'auto'}
                     onBackdropPress={() => this.setState({ isVisible: false })}
                 >
-                    <Text 
-                        style={{
-                            fontSize: 18,
-                            fontWeight: '800',
-                            paddingBottom: 10,
-                            borderBottomColor: '#cfcfcf',
-                            borderBottomWidth: 1
-                        }}
-                    >
-                        Change Profile Photo
-                    </Text>
-                    <TouchableWithoutFeedback>
-                        <Text
+                    <View>
+                        <Text 
                             style={{
-                                fontSize: 16,
-                                paddingVertical: 15
+                                fontSize: 18,
+                                fontWeight: '800',
+                                paddingBottom: 10,
+                                borderBottomColor: '#cfcfcf',
+                                borderBottomWidth: 1
                             }}
                         >
-                            Select from Gallery
+                            Change Profile Photo
                         </Text>
-                    </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback>
-                        <Text
-                            style={{
-                                fontSize: 16,
-                                paddingVertical: 15
-                            }}
-                        >
-                            Open Camera
-                        </Text>
-                    </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback>
+                            <Text
+                                style={{
+                                    fontSize: 16,
+                                    paddingVertical: 15
+                                }}
+                            >
+                                Select from Gallery
+                            </Text>
+                        </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback>
+                            <Text
+                                style={{
+                                    fontSize: 16,
+                                    paddingVertical: 15
+                                }}
+                            >
+                                Open Camera
+                            </Text>
+                        </TouchableWithoutFeedback>
+                    </View>
                 </Overlay>
             </View>
         )
