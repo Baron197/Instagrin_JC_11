@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
-import { Header, Button, Input } from 'react-native-elements';
+import { Header, Button, Input, Overlay } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { API_URL } from '../helpers/apiurl';
 import { 
@@ -9,6 +9,8 @@ import {
 } from '../actions';
 
 class EditProfile extends React.Component {
+    state = { isVisible: false }
+
     componentDidUpdate() {
         if(this.props.editProfile.saveProfileSuccess) {
             this.props.navigation.goBack()
@@ -50,7 +52,9 @@ class EditProfile extends React.Component {
                         source={{ uri: `${API_URL}${this.props.editProfile.profileimage}` }} 
                         style={{ width: 90, height: 90, borderRadius: 90}} 
                     />
-                    <TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback
+                        onPress={() => this.setState({ isVisible: true })}
+                    >
                         <Text style={{ color: '#4388d6', fontSize: 17, paddingTop: 10 }} >
                             Change Profile Photo
                         </Text>
@@ -95,6 +99,43 @@ class EditProfile extends React.Component {
                         onChangeText={(text) => this.props.onInputEditProfileText('bio', text)}
                     />
                 </View>
+                <Overlay 
+                    isVisible={this.state.isVisible}
+                    height={'auto'}
+                    onBackdropPress={() => this.setState({ isVisible: false })}
+                >
+                    <Text 
+                        style={{
+                            fontSize: 18,
+                            fontWeight: '800',
+                            paddingBottom: 10,
+                            borderBottomColor: '#cfcfcf',
+                            borderBottomWidth: 1
+                        }}
+                    >
+                        Change Profile Photo
+                    </Text>
+                    <TouchableWithoutFeedback>
+                        <Text
+                            style={{
+                                fontSize: 16,
+                                paddingVertical: 15
+                            }}
+                        >
+                            Select from Gallery
+                        </Text>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback>
+                        <Text
+                            style={{
+                                fontSize: 16,
+                                paddingVertical: 15
+                            }}
+                        >
+                            Open Camera
+                        </Text>
+                    </TouchableWithoutFeedback>
+                </Overlay>
             </View>
         )
     }
