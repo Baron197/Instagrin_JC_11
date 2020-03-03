@@ -31,6 +31,8 @@ class Home extends React.Component {
                     renderItem={({ item }) => <PostCard post={item} />}
                     keyExtractor={item => item.id.toString()}
                     style={{ width: '100%' }}
+                    onRefresh={() => this.props.getHomeListPost()}
+                    refreshing={this.props.loading}
                 />
             </View>
         )
@@ -47,7 +49,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({ homeListPost }) => {
     return {
-        homeListPost
+        homeListPost: homeListPost.listPost,
+        loading: homeListPost.loading
     }
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import { View, Text, StyleSheet, Platform, Image } from 'react-native';
 import { Header, ListItem, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { API_URL } from '../helpers/apiurl';
@@ -9,6 +9,24 @@ class Profile extends React.Component {
     onBtnEditProfilePress = () => {
         this.props.initEditProfile(this.props.user)
         this.props.navigation.navigate('EditProfile')
+    }
+
+    renderListPost = () => {
+        var i = 2;
+        return this.props.listPost.map((item, index) => {
+            var styleObj = { width: '33%', marginVertical: 1 }
+            if((index + 1) === i ) {
+                i += 3;
+                styleObj.marginHorizontal = '0.5%'
+            }
+            return (
+                <View 
+                    style={styleObj}
+                >
+                    <Image source={{uri: `${API_URL}${item.image}` }} style={{height: 125, width: '100%' }}/>
+                </View>
+            )
+        })
     }
 
     render() {
@@ -60,6 +78,13 @@ class Profile extends React.Component {
                     type='outline'
                     onPress={this.onBtnEditProfilePress}
                 />
+                <View style={{
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    flex: 1
+                }}>
+                    {this.renderListPost()}
+                </View>
             </View>
         )
     }
@@ -73,8 +98,8 @@ const styles = StyleSheet.create({
     }
 })
 
-const mapStateToProps = ({ user }) => {
-    return { user }
+const mapStateToProps = ({ user, homeListPost }) => {
+    return { user, homeListPost }
 }
 
 export default connect(mapStateToProps, { initEditProfile })(Profile);

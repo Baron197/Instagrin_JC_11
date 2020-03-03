@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
 import { 
     onInputCaptionChange,
-    onImagePostChange
+    onImagePostChange,
+    postingPhoto
 } from '../actions';
 
 class PostPhoto extends React.Component {
@@ -35,6 +36,10 @@ class PostPhoto extends React.Component {
         }).catch(err => {
             console.log(err)
         });
+    }
+
+    onBtnPostImagePress = () => {
+        this.props.postingPhoto(this.props)
     }
 
     render() {
@@ -98,6 +103,22 @@ class PostPhoto extends React.Component {
                             style={{ height: 350, width: '100%' }} 
                         />
                     </View>
+                    <View style={{ marginVertical: 20, marginHorizontal: 15 }}>
+                        <Text style={{ color: 'red' }}>{this.props.error}</Text>
+                        <Button
+                            icon={
+                                <Icon
+                                    name="cloud-upload"
+                                    size={30}
+                                    color="white"
+                                />
+                            }
+                            title="Post Image"
+                            buttonStyle={{ backgroundColor: 'black' }}
+                            onPress={this.onBtnPostImagePress}
+                            loading={this.props.loading}
+                        />
+                    </View>
                 </ScrollView>
             </View>
         )
@@ -110,4 +131,8 @@ const mapStateToProps = ({ postPhoto }) => {
     }
 }
 
-export default connect(mapStateToProps, { onInputCaptionChange, onImagePostChange })(PostPhoto);
+export default connect(mapStateToProps, { 
+    onInputCaptionChange, 
+    onImagePostChange, 
+    postingPhoto 
+})(PostPhoto);

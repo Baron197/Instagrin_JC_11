@@ -22,3 +22,38 @@ export const onImagePostChange = (image) => {
         payload: image
     }
 }
+
+export const postingPhoto = ({ image, caption }) => {
+    return async (dispatch) => {
+        try {
+            dispatch({ type: POST_PHOTO_LOADING })
+            const token = await AsyncStorage.getItem('usertoken')
+
+            const options = {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+
+            const data = new FormData();
+            const img = {
+                uri: image.path,
+                type: 'image/jpeg',
+                name: 'photo.jpg',
+            }
+            data.append('image', img)
+            data.append('data', JSON.stringify({ caption }))
+
+            const res = await axios.post(API_URL + '/post/addpost', data, options) 
+            
+            dispatch({ type: POST_PHOTO_SUCCESS })
+        } catch (err) {
+            console.log(err)
+            dispatch({ 
+                type: POST_PHOTO_FAIL,
+                payload: 'System Error'
+            })
+        }
+    }
+}
