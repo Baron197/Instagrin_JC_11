@@ -13,7 +13,7 @@ class Profile extends React.Component {
 
     renderListPost = () => {
         var i = 2;
-        return this.props.listPost.map((item, index) => {
+        return this.props.homeListPost.listPost.map((item, index) => {
             var styleObj = { width: '33%', marginVertical: 1 }
             if((index + 1) === i ) {
                 i += 3;
@@ -61,7 +61,7 @@ class Profile extends React.Component {
                         width: '100%'
                     }}
                 />
-                <View>
+                <View style={{ paddingLeft: 15 }}>
                     <Text>{this.props.user.bio}</Text>
                 </View>
                 <Button 
@@ -93,12 +93,14 @@ class Profile extends React.Component {
 const styles = StyleSheet.create({
     containerStyle: {
         backgroundColor: '#fff',
-        flex: 1,
-        alignItems: 'center'
+        flex: 1
     }
 })
 
 const mapStateToProps = ({ user, homeListPost }) => {
+    homeListPost.listPost = homeListPost.listPost.filter((item) => {
+        return item.userId === user.id
+    })
     return { user, homeListPost }
 }
 
