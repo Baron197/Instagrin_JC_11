@@ -39,7 +39,18 @@ class EditProfile extends React.Component {
     }
 
     onOpenCameraPress = () => {
-
+        ImagePicker.openCamera({
+            width: 700,
+            height: 700,
+            cropping: true,
+            mediaType: 'photo'
+        }).then(image => {
+            console.log(image);
+            this.setState({ isVisible: false })
+            this.props.saveProfileImage(image);
+        }).catch(err => {
+            console.log(err)
+        });
     }
 
     render() {

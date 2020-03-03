@@ -15,3 +15,10 @@ export const onInputCaptionChange = (caption) => {
         payload: caption
     }
 }
+
+export const onImagePostChange = (image) => {
+    return {
+        type: IMAGE_CHANGE,
+        payload: image
+    }
+}

@@ -2,15 +2,39 @@ import React from 'react';
 import { View, Text, Image, ScrollView } from 'react-native';
 import { Button, Input, Header, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { onInputCaptionChange } from '../actions';
+import ImagePicker from 'react-native-image-crop-picker';
+import { 
+    onInputCaptionChange,
+    onImagePostChange
+} from '../actions';
 
 class PostPhoto extends React.Component {
     onBtnOpenCameraPress = () => {
-
+        ImagePicker.openCamera({
+            width: 700,
+            height: 700,
+            cropping: true,
+            mediaType: 'photo'
+        }).then(image => {
+            console.log(image);
+            this.props.onImagePostChange(image);
+        }).catch(err => {
+            console.log(err)
+        });
     }
 
     onBtnSelectGaleryPress = () => {
-
+        ImagePicker.openPicker({
+            width: 700,
+            height: 700,
+            cropping: true,
+            mediaType: 'photo'
+        }).then(image => {
+            console.log(image);
+            this.props.onImagePostChange(image);
+        }).catch(err => {
+            console.log(err)
+        });
     }
 
     render() {
@@ -86,4 +110,4 @@ const mapStateToProps = ({ postPhoto }) => {
     }
 }
 
-export default connect(mapStateToProps, { onInputCaptionChange })(PostPhoto);
+export default connect(mapStateToProps, { onInputCaptionChange, onImagePostChange })(PostPhoto);
