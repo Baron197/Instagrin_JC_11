@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import { API_URL } from '../helpers/apiurl';
 
 class PostDetailProfile extends React.Component {
+    state = { isVisible: false, deleteVisible: false }
+    
     render() {
         return (
             <View>
@@ -52,6 +54,32 @@ class PostDetailProfile extends React.Component {
                         </Left>
                     </CardItem>
                 </Card>
+                <Overlay 
+                    isVisible={this.state.isVisible}
+                    height={'auto'}
+                    onBackdropPress={() => this.setState({ isVisible: false })}
+                >
+                    <TouchableWithoutFeedback>
+                        <Text
+                            style={{
+                                fontSize: 16,
+                                paddingVertical: 15
+                            }}
+                        >
+                            Edit
+                        </Text>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={() => this.setState({ isVisible: false, deleteVisible: true })}>
+                        <Text
+                            style={{
+                                fontSize: 16,
+                                paddingVertical: 15
+                            }}
+                        >
+                            Delete
+                        </Text>
+                    </TouchableWithoutFeedback>
+                </Overlay>
             </View>
         )
     }

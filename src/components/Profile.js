@@ -18,7 +18,7 @@ class Profile extends React.Component {
 
     renderListPost = () => {
         var i = 2;
-        return this.props.homeListPost.listPost.map((item, index) => {
+        return this.props.listPost.map((item, index) => {
             var styleObj = { width: '33%', marginVertical: 1 }
             if((index + 1) === i ) {
                 i += 3;
@@ -108,10 +108,10 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = ({ user, homeListPost }) => {
-    homeListPost.listPost = homeListPost.listPost.filter((item) => {
+    var listPost = homeListPost.listPost.filter((item) => {
         return item.userId === user.id
     })
-    return { user, homeListPost }
+    return { user, listPost }
 }
 
 export default connect(mapStateToProps, { initEditProfile, initPostDetailProfile })(Profile);
