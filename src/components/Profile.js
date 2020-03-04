@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Platform, Image, TouchableWithoutFeedback } fro
 import { Header, ListItem, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { API_URL } from '../helpers/apiurl';
-import { initEditProfile } from '../actions';
+import { initEditProfile, initPostDetailProfile } from '../actions';
 
 class Profile extends React.Component {
     onBtnEditProfilePress = () => {
@@ -12,7 +12,8 @@ class Profile extends React.Component {
     }
 
     onPostPress = (post) => {
-
+        this.props.initPostDetailProfile(post)
+        this.props.navigation.navigate('PostDetailProfile')
     }
 
     renderListPost = () => {
@@ -26,6 +27,7 @@ class Profile extends React.Component {
             return (
                 <TouchableWithoutFeedback
                     onPress={() => this.onPostPress(item)}
+                    key={index}
                 >
                     <View 
                         style={styleObj}
@@ -112,4 +114,4 @@ const mapStateToProps = ({ user, homeListPost }) => {
     return { user, homeListPost }
 }
 
-export default connect(mapStateToProps, { initEditProfile })(Profile);
+export default connect(mapStateToProps, { initEditProfile, initPostDetailProfile })(Profile);
