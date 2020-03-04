@@ -8,6 +8,10 @@ import { API_URL } from '../helpers/apiurl';
 class PostDetailProfile extends React.Component {
     state = { isVisible: false, deleteVisible: false }
 
+    deletePost = () => {
+        
+    }
+
     render() {
         return (
             <View>
@@ -103,7 +107,9 @@ class PostDetailProfile extends React.Component {
                                 Delete this post?
                             </Text>
                         </View>
-                        <TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback
+                            onPress={this.deletePost}
+                        >
                             <View style={{
                                 paddingVertical: 12,
                                 borderTopWidth: 0.3,
