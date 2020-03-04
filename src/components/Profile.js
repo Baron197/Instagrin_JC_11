@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Platform, Image } from 'react-native';
+import { View, Text, StyleSheet, Platform, Image, TouchableWithoutFeedback } from 'react-native';
 import { Header, ListItem, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { API_URL } from '../helpers/apiurl';
@@ -11,6 +11,10 @@ class Profile extends React.Component {
         this.props.navigation.navigate('EditProfile')
     }
 
+    onPostPress = (post) => {
+
+    }
+
     renderListPost = () => {
         var i = 2;
         return this.props.homeListPost.listPost.map((item, index) => {
@@ -20,11 +24,15 @@ class Profile extends React.Component {
                 styleObj.marginHorizontal = '0.5%'
             }
             return (
-                <View 
-                    style={styleObj}
+                <TouchableWithoutFeedback
+                    onPress={() => this.onPostPress(item)}
                 >
-                    <Image source={{uri: `${API_URL}${item.image}` }} style={{height: 125, width: '100%' }}/>
-                </View>
+                    <View 
+                        style={styleObj}
+                    >
+                        <Image source={{uri: `${API_URL}${item.image}` }} style={{height: 125, width: '100%' }}/>
+                    </View>
+                </TouchableWithoutFeedback>
             )
         })
     }

@@ -21,3 +21,6 @@ export const INPUT_CAPTION_CHANGE = 'INPUT_CAPTION_CHANGE';
 export const POST_PHOTO_LOADING = 'POST_PHOTO_LOADING';
 export const POST_PHOTO_SUCCESS = 'POST_PHOTO_SUCCESS';
 export const POST_PHOTO_FAIL = 'POST_PHOTO_FAIL';
+
+// action types PostDetailProfileReducer
+export const INIT_POST_DETAIL_PROFILE = 'INIT_POST_DETAIL_PROFILE';
