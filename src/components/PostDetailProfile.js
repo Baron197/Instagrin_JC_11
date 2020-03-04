@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, TouchableWithoutFeedback } from 'react-native';
 import { Header, Icon, Overlay } from 'react-native-elements';
 import { Card, CardItem, Thumbnail, Text, Button, Left, Body, Right } from 'native-base';
 import { connect } from 'react-redux';
@@ -7,7 +7,7 @@ import { API_URL } from '../helpers/apiurl';
 
 class PostDetailProfile extends React.Component {
     state = { isVisible: false, deleteVisible: false }
-    
+
     render() {
         return (
             <View>
@@ -42,6 +42,7 @@ class PostDetailProfile extends React.Component {
                             <Icon
                                 name='more-vert'
                                 size={30}
+                                onPress={() => this.setState({ isVisible: true })}
                             />
                         </Right>
                     </CardItem>
@@ -59,26 +60,28 @@ class PostDetailProfile extends React.Component {
                     height={'auto'}
                     onBackdropPress={() => this.setState({ isVisible: false })}
                 >
-                    <TouchableWithoutFeedback>
-                        <Text
-                            style={{
-                                fontSize: 16,
-                                paddingVertical: 15
-                            }}
-                        >
-                            Edit
-                        </Text>
-                    </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback onPress={() => this.setState({ isVisible: false, deleteVisible: true })}>
-                        <Text
-                            style={{
-                                fontSize: 16,
-                                paddingVertical: 15
-                            }}
-                        >
-                            Delete
-                        </Text>
-                    </TouchableWithoutFeedback>
+                    <View>
+                        <TouchableWithoutFeedback>
+                            <Text
+                                style={{
+                                    fontSize: 16,
+                                    paddingVertical: 15
+                                }}
+                            >
+                                Edit
+                            </Text>
+                        </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback onPress={() => this.setState({ isVisible: false, deleteVisible: true })}>
+                            <Text
+                                style={{
+                                    fontSize: 16,
+                                    paddingVertical: 15
+                                }}
+                            >
+                                Delete
+                            </Text>
+                        </TouchableWithoutFeedback>
+                    </View>
                 </Overlay>
             </View>
         )
