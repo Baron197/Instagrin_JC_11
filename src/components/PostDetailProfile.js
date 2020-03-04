@@ -83,6 +83,64 @@ class PostDetailProfile extends React.Component {
                         </TouchableWithoutFeedback>
                     </View>
                 </Overlay>
+                <Overlay 
+                    isVisible={this.state.deleteVisible}
+                    height={'auto'}
+                >
+                    <View style={{ alignItems: 'center' }}>
+                        <View style={{
+                            alignItems: 'center',
+                            height: 100,
+                            justifyContent: 'center'
+                        }}>
+                            <Text style={{
+                                fontSize: 18,
+                                paddingBottom: 10
+                            }}>
+                                Confirm Deletion
+                            </Text>
+                            <Text note>
+                                Delete this post?
+                            </Text>
+                        </View>
+                        <TouchableWithoutFeedback>
+                            <View style={{
+                                paddingVertical: 12,
+                                borderTopWidth: 0.3,
+                                borderTopColor: '#dedede',
+                                width: '100%',
+                                alignItems: 'center'
+                            }}>
+                                <Text
+                                    style={{
+                                        fontSize: 16,
+                                        color: '#4388d6',
+                                        fontWeight: 'bold'
+                                    }}
+                                >
+                                    Delete
+                                </Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback onPress={() => this.setState({ deleteVisible: false })}>
+                            <View style={{
+                                paddingVertical: 12,
+                                borderTopWidth: 0.3,
+                                borderTopColor: '#dedede',
+                                width: '100%',
+                                alignItems: 'center'
+                            }}>
+                                <Text
+                                    style={{
+                                        fontSize: 16
+                                    }}
+                                >
+                                    Don't delete
+                                </Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </View>
+                </Overlay>
             </View>
         )
     }
