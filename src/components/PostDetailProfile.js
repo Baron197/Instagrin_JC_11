@@ -9,7 +9,7 @@ class PostDetailProfile extends React.Component {
     state = { isVisible: false, deleteVisible: false }
 
     deletePost = () => {
-        
+
     }
 
     render() {
@@ -145,6 +145,17 @@ class PostDetailProfile extends React.Component {
                                 </Text>
                             </View>
                         </TouchableWithoutFeedback>
+                    </View>
+                </Overlay>
+                <Overlay 
+                    isVisible={this.props.deleteLoading}
+                    height={'auto'}
+                    width={'auto'}
+                >
+                    <View style={{ padding: 15 }}>
+                        <Text style={{ fontSize: 16 }}>
+                            Deleting ...
+                        </Text>
                     </View>
                 </Overlay>
             </View>
