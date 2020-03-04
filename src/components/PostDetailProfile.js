@@ -1,30 +1,53 @@
 import React from 'react';
 import { View, Image, TouchableWithoutFeedback } from 'react-native';
-import { Header, Icon, Overlay } from 'react-native-elements';
+import { Header, Icon, Overlay, Input } from 'react-native-elements';
 import { Card, CardItem, Thumbnail, Text, Button, Left, Body, Right } from 'native-base';
 import { connect } from 'react-redux';
 import { API_URL } from '../helpers/apiurl';
+import { 
+    deletePost,
+    getHomeListPost,
+    editingPost,
+    cancelEditPost
+} from '../actions';
 
 class PostDetailProfile extends React.Component {
     state = { isVisible: false, deleteVisible: false }
 
+    componentDidUpdate() {
+        if(!this.props.id) {
+            this.props.getHomeListPost()
+            this.props.navigation.goBack()
+        }
+    }
+
     deletePost = () => {
+        this.setState({ deleteVisible: false })
+        this.props.deletePost(this.props.id)
+    }
+
+    savePost = () => {
 
     }
 
-    render() {
-        return (
-            <View>
+    renderHeader = () => {
+        if(this.props.editPost) {
+            return (
                 <Header
-                    placement='left'
+                    placement="left"
+                    leftComponent={{ 
+                        icon: 'clear', 
+                        color: 'black',
+                        onPress: this.props.cancelEditPost
+                    }}
                     centerComponent={{ 
-                        text: 'Post', 
+                        text: 'Edit Info', 
                         style: { color: 'black', fontSize: 18, fontWeight: '700' } 
                     }}
-                    leftComponent={{ 
-                        icon: 'arrow-back', 
-                        color: 'black',
-                        onPress: () => this.props.navigation.goBack()
+                    rightComponent={{ 
+                        icon: 'done', 
+                        color: '#4388d6',
+                        onPress: this.savePost
                     }}
                     containerStyle={{
                         backgroundColor: '#fff',
@@ -33,6 +56,34 @@ class PostDetailProfile extends React.Component {
                         marginTop: Platform.OS === 'ios' ? 0 : - 25
                     }}
                 />
+            )
+        }
+
+        return (
+            <Header
+                placement='left'
+                centerComponent={{ 
+                    text: 'Post', 
+                    style: { color: 'black', fontSize: 18, fontWeight: '700' } 
+                }}
+                leftComponent={{ 
+                    icon: 'arrow-back', 
+                    color: 'black',
+                    onPress: () => this.props.navigation.goBack()
+                }}
+                containerStyle={{
+                    backgroundColor: '#fff',
+                    justifyContent: 'space-around',
+                    elevation: 2,
+                    marginTop: Platform.OS === 'ios' ? 0 : - 25
+                }}
+            />);
+    }
+
+    render() {
+        return (
+            <View>
+                {this.renderHeader()}
                 <Card>
                     <CardItem>
                         <Left style={{ flex: 3 }}>
@@ -65,7 +116,12 @@ class PostDetailProfile extends React.Component {
                     onBackdropPress={() => this.setState({ isVisible: false })}
                 >
                     <View>
-                        <TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback
+                            onPress={() => {
+                                this.setState({ isVisible: false })
+                                this.props.editingPost()
+                            }}
+                        >
                             <Text
                                 style={{
                                     fontSize: 16,
@@ -169,4 +225,9 @@ const mapStateToProps = ({ postDetailProfile }) => {
     }
 }
 
-export default connect(mapStateToProps)(PostDetailProfile);
+export default connect(mapStateToProps, { 
+    deletePost, 
+    getHomeListPost,
+    editingPost,
+    cancelEditPost
+})(PostDetailProfile);

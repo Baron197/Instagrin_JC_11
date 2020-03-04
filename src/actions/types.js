@@ -24,3 +24,8 @@ export const POST_PHOTO_FAIL = 'POST_PHOTO_FAIL';
 
 // action types PostDetailProfileReducer
 export const INIT_POST_DETAIL_PROFILE = 'INIT_POST_DETAIL_PROFILE';
+export const DELETE_POST_LOADING = 'DELETE_POST_LOADING';
+export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
+export const DELETE_POST_FAIL = 'DELETE_POST_FAIL';
+export const EDIT_POST = 'EDIT_POST';
+export const CANCEL_EDIT_POST = 'CANCEL_EDIT_POST';
